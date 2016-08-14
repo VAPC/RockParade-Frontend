@@ -1,0 +1,63 @@
+{
+  "name": "rockparade",
+  "version": "0.0.1",
+  "description": "Social network for musicians and concert organizers",
+  "main": "index.js",
+  "scripts": {
+    "gulp": "gulp tdd"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vehsamrak/RockParade.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Vehsamrak/RockParade/issues"
+  },
+  "homepage": "https://github.com/Vehsamrak/RockParade#readme",
+  "devDependencies": {
+    "connect-injector": "^0.4.4",
+    "express": "^4.14.0",
+    "gulp": "^3.9.1",
+    "gulp-cached": "^1.1.0",
+    "gulp-concat": "^2.6.0",
+    "gulp-postcss": "^6.1.1",
+    "gulp-remember": "^0.3.1",
+    "gulp-sourcemaps": "^1.6.0",
+    "gulp-util": "^3.0.7",
+    "gulp-watch": "^4.3.9",
+    "jasmine-core": "^2.4.1",
+    "karma": "^1.1.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-mocha-reporter": "^2.0.4",
+    "karma-rollup-preprocessor": "^2.0.2",
+    "karma-sourcemap-loader": "^0.3.7",
+    "opn": "^4.0.2",
+    "portscanner": "^1.0.0",
+    "postcss-inline-svg": "^2.0.1",
+    "postcss-nested": "^1.0.0",
+    "postcss-simple-vars": "^3.0.0",
+    "require-dir": "^0.3.0",
+    "rollup": "^0.33.0",
+    "rollup-plugin-buble": "^0.12.1",
+    "rollup-plugin-multi-entry": "^2.0.1",
+    "rollup-plugin-node-resolve": "^2.0.0",
+    "rollup-plugin-typescript": "^0.7.6",
+    "run-sequence": "^1.2.2",
+    "typescript": "^1.8.10"
+  },
+  "dependencies": {
+    "@angular/common": "2.0.0-rc.4",
+    "@angular/compiler": "2.0.0-rc.4",
+    "@angular/core": "2.0.0-rc.4",
+    "@angular/http": "2.0.0-rc.4",
+    "@angular/platform-browser": "2.0.0-rc.4",
+    "@angular/platform-browser-dynamic": "2.0.0-rc.4",
+    "@angular/router": "3.0.0-beta.1",
+    "rxjs": "^5.0.0-beta.6",
+    "rxjs-es": "^5.0.0-beta.10",
+    "zone.js": "^0.6.12"
+  }
+}

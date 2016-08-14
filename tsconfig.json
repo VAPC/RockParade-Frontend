@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "es5",
+    "noImplicitAny": true,
+    "removeComments": true,
+    "preserveConstEnums": true,
+    "pretty": true,
+    "module": "es6",
+    "isolatedModules": false
+  },
+  "files": [
+    "app/**/*.ts",
+    "includes/**/*.ts"
+  ]
+}
