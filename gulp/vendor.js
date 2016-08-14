@@ -11,8 +11,12 @@ const ng2 = {
         }
     }
 };
+gulp.task('copy:angular:polyfills', () => {
+    return gulp.src('./index/angular2-polyfills.js')
+        .pipe(gulp.dest('./dist/'));
+});
 
-gulp.task('vendor', () => {
+gulp.task('vendor', ['copy:angular:polyfills'], () => {
    return rollup({
        entry: 'vendor.js',
        plugins: [
@@ -31,7 +35,7 @@ gulp.task('vendor', () => {
        return bundle.write({
            format: 'iife',
            moduleName: 'ng',
-           dest: '../../web/vendor.js',
+           dest: './dist/vendor.js',
            sourceMap: 'inline'
        });
    }).catch(err => {

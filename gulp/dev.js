@@ -5,20 +5,25 @@ var server = require('./lib/server');
 var reload = server.reload;
 
 
-gulp.task('dev', function () {
-    run(['script', 'server', 'test:tdd', 'style:watch']);
-    watch(['app/**/*.ts'], function () {
+gulp.task('dev',  () => {
+    run(['copy:html', 'script', 'server', 'test:tdd', 'style:watch']);
+    watch(['src/**/*.ts'],  () => {
         run(['script', 'test:script'], (err) => !err && reload());
     });
-    watch(['test/**/*.ts'], function () {
+    watch(['test/**/*.ts'],  () => {
         run(['test:script']);
     });
 });
 
-gulp.task('server', function () {
+gulp.task('server',  () => {
     return server([
-        '../../web'
+        './dist'
     ], {
         port: 3000
     });
+});
+
+gulp.task('copy:html', () => {
+    gulp.src('./index/index.html')
+        .pipe(gulp.dest('./dist'));
 });

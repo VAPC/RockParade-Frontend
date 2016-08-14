@@ -10,7 +10,7 @@ const globals = {
 
 gulp.task('script', function () {
     return rollup({
-        entry: 'app/bootstrap.ts',
+        entry: 'src/bootstrap.ts',
         plugins: [
             typescript()
         ],
@@ -19,7 +19,7 @@ gulp.task('script', function () {
         return bundle.write({
             globals,
             format: 'iife',
-            dest: '../../web/app.js',
+            dest: './dist/app.js',
             sourceMap: 'inline'
         });
     });

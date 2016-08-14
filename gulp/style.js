@@ -13,12 +13,12 @@ const nested = require('postcss-nested');
 const inlineSvg = require('postcss-inline-svg');
 
 gulp.task('style', () => {
-    return gulp.src('app/**/*.scss')
+    return gulp.src('src/**/*.scss')
         .pipe(cached('style'))
         .pipe(sourcemaps.init())
         .pipe(postcss([
             simpleVars({
-                variables: JSON.parse(readFile('app/constants.json', 'utf8'))
+                variables: JSON.parse(readFile('src/constants.json', 'utf8'))
             }),
             nested,
             inlineSvg
@@ -26,16 +26,16 @@ gulp.task('style', () => {
         .pipe(remember('style'))
         .pipe(concat('app.css'))
         .pipe(sourcemaps.write())
-        .pipe(gulp.dest('../../web'));
+        .pipe(gulp.dest('./dist'));
 });
 
 gulp.task('style:watch', ['style'], () => {
-    watch(['app/**/*.scss'], (file) => {
+    watch(['src/**/*.scss'], (file) => {
         delete cached.caches.style[file.path];
         remember.forget('style', file.path);
         run('style', (err) => !err && reload());
     });
-    watch(['app/variables.json'], () => {
+    watch(['src/variables.json'], () => {
         delete cached.caches.style;
         remember.forgetAll('style');
         run('style', (err) => !err && reload());
