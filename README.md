@@ -17,6 +17,7 @@ How to run
 * Git clone
 * cd /RockParade-Frontend
 * npm install
+* gulp vendor
 * gulp dev
 * Open http://localhost:3000/ in browser
 
