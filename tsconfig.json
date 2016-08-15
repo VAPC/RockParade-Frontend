@@ -6,7 +6,9 @@
     "preserveConstEnums": true,
     "pretty": true,
     "module": "es6",
-    "isolatedModules": false
+    "isolatedModules": false,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "files": [
     "src/**/*.ts",

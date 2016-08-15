@@ -1,23 +1,20 @@
-import {Component} from '@angular/core';
-import {Event} from './Event';
+import {Component, Inject} from '@angular/core';
 import {EventComponent} from './event.cmt';
-
-const Events:Event[] = [
-    {id: 11, title: 'Soccer'},
-    {id: 12, title: 'Hokey'},
-    {id: 13, title: 'Snooker'},
-];
+import {Event} from './Event';
+import {EventService} from './events.srv';
 
 @Component({
     selector: 'events-list',
     template: `<ul class="events">
                     <event-item *ngFor="let item of events" [event]="item"></event-item>
                 </ul>`,
+    providers: [EventService],
     directives: [EventComponent]
 })
 export class EventsComponent {
-    events = Events;
-    constructor() {
-        console.log('cl EventsComponent', this);
+    events: Array<Event>;
+
+    constructor(@Inject(EventService) eventService: EventService) {
+        console.log('cl eventService', eventService);
     }
 }
