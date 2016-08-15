@@ -8,14 +8,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Vehsamrak/RockParade.git"
+    "url": "git+https://github.com/VAPC/RockParade-Frontend.git"
   },
-  "author": "",
+  "author": "VAPC",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Vehsamrak/RockParade/issues"
+    "url": "https://github.com/VAPC/RockParade-Frontend/issues"
   },
-  "homepage": "https://github.com/Vehsamrak/RockParade#readme",
+  "homepage": "https://github.com/VAPC/RockParade-Frontend",
   "devDependencies": {
     "connect-injector": "^0.4.4",
     "express": "^4.14.0",
@@ -56,7 +56,6 @@
     "@angular/platform-browser": "2.0.0-rc.4",
     "@angular/platform-browser-dynamic": "2.0.0-rc.4",
     "@angular/router": "3.0.0-beta.1",
-    "rxjs": "^5.0.0-beta.6",
     "rxjs-es": "^5.0.0-beta.10",
     "zone.js": "^0.6.12"
   }
