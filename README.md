@@ -1,3 +1,7 @@
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/badges/build.png?b=master)](https://scrutinizer-ci.com/g/VAPC/RockParade-Frontend/build-status/master)
+
 RockParade
 ==========
 Social network for musicians and concert organizers
