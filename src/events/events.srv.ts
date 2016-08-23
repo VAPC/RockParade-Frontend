@@ -4,11 +4,7 @@ import {EVENTS} from './mock-events'
 
 @Injectable()
 export class EventService {
-    eventList: Array<Event>;
-    //
-    // constructor() {
-    //     this.eventList =
-    // }
+    eventList:Array<Event>;
 
     getEvents() {
         return EVENTS;
