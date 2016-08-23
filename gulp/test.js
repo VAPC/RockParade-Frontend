@@ -14,10 +14,12 @@ gulp.task('test:tdd', function (done) {
 
 var rollupBundle = null;
 
+const globals = {
+    '@angular/core': 'ng.core',
+    '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic'
+};
+
 gulp.task('test:script', function () {
-    var globals = {
-        angular: 'angular'
-    };
     return rollup({
         entry: 'test/**/*.ts',
         external: Object.keys(globals),
