@@ -1,10 +1,11 @@
 var gulp = require('gulp');
 var Server = require('karma').Server;
 var rollup = require('rollup').rollup;
-var typescript = require('./lib/rollup-plugin-typescript.cjs.js');
+var typescript = require('rollup-plugin-typescript');
 var multiEntry = require('rollup-plugin-multi-entry');
-var nodeResolve = require('rollup-plugin-node-resolve');
 var PluginError = require('gulp-util').PluginError;
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfigTypeChecking.json', {noExternalResolve : true});
 
 gulp.task('test:tdd', function (done) {
     new Server({
@@ -42,4 +43,13 @@ gulp.task('test:script', function () {
     }).catch(function (err) {
         throw new PluginError('rollup', err.toString());
     });
+});
+
+
+gulp.task('test:typechecking', (done) => {
+    return gulp.src([
+        'test/**/*.ts',
+        "includes/**/*.ts"
+    ])
+        .pipe(ts(tsProject));
 });
