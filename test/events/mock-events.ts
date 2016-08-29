@@ -1,4 +1,4 @@
-import {Event} from 'Event';
+import {Event} from '../../src/events/Event';
 
 export const EVENTS: Event[] = [
     {id: 11, title: 'Soccer'},

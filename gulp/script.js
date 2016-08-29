@@ -1,6 +1,8 @@
 var gulp = require('gulp');
 var rollup = require('rollup').rollup;
-var typescript = require('./lib/rollup-plugin-typescript.cjs.js');
+var typescript = require('rollup-plugin-typescript');
+var ts = require('gulp-typescript');
+var tsProject = ts.createProject('tsconfigTypeChecking.json', {noExternalResolve : true});
 
 
 const globals = {
@@ -8,14 +10,14 @@ const globals = {
     '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic'
 };
 
-gulp.task('script', function () {
+gulp.task('script', () => {
     return rollup({
         entry: 'src/bootstrap.ts',
         plugins: [
             typescript()
         ],
         external: Object.keys(globals)
-    }).then(function (bundle) {
+    }).then((bundle)=> {
         return bundle.write({
             globals,
             format: 'iife',
@@ -23,4 +25,12 @@ gulp.task('script', function () {
             sourceMap: 'inline'
         });
     });
+});
+
+gulp.task('script:typechecking', (done) => {
+    return gulp.src([
+        "src/**/*.ts",
+        "includes/**/*.ts"
+    ])
+        .pipe(ts(tsProject));
 });

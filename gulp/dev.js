@@ -5,17 +5,25 @@ var server = require('./lib/server');
 var reload = server.reload;
 
 
-gulp.task('dev',  () => {
-    run(['copy:html', 'script', 'server', 'test:tdd', 'style:watch']);
-    watch(['src/**/*.ts'],  () => {
-        run(['script', 'test:script'], (err) => !err && reload());
+gulp.task('dev', [
+        'copy:html',
+        'script',
+        'server',
+        'style:watch',
+        'test:script'
+    ],
+    () => {
+        run(['test:tdd']);
+        watch(['src/**/*.ts'], () => {
+            run(['test:script']);
+            run(['script'], (err) => !err && reload());
+        });
+        watch(['test/**/*.ts'], () => {
+            run(['test:script']);
+        });
     });
-    watch(['test/**/*.ts'],  () => {
-        run(['test:script']);
-    });
-});
 
-gulp.task('server',  () => {
+gulp.task('server', () => {
     return server([
         './dist'
     ], {
