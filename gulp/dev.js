@@ -6,7 +6,7 @@ var reload = server.reload;
 
 
 gulp.task('dev',  () => {
-    run(['copy:html', 'script', 'server', 'test:tdd', 'style:watch']);
+    run(['copy:html', 'copy:assets', 'script', 'server', 'test:tdd', 'style:watch']);
     watch(['src/**/*.ts'],  () => {
         run(['script', 'test:script'], (err) => !err && reload());
     });

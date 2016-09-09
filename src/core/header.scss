@@ -1,0 +1,32 @@
+.header {
+    padding: 10px 0;
+    display: flex;
+
+    &__logo-holder {
+        flex-basis: 200px;
+    }
+
+    &__menu-holder {
+        flex: 1 0;
+    }
+
+    &__profile-holder {
+        flex-basis: 200px;
+        text-align: right;
+    }
+
+    &__avatar {
+        width: 50px;
+        border-radius: 50%;
+        float: left;
+    }
+
+    &__uname {
+        white-space: nowrap;
+        overflow: hidden;
+        float: right;
+        text-align: left;
+        width: 140px;
+        margin: 15px 0;
+    }
+}
