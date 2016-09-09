@@ -7,6 +7,7 @@ var reload = server.reload;
 
 gulp.task('dev', [
         'copy:html',
+    'copy:assets',
         'script',
         'server',
         'style:watch',
