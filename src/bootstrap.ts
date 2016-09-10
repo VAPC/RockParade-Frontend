@@ -9,7 +9,7 @@ import {EffectsModule} from '@ngrx/effects';
 import {rootReducer} from './reducers';
 import {EventActions} from "./actions/event";
 
-@NgModule({
+NgModule({
     declarations: [
         CoreComponent
     ],
@@ -25,6 +25,4 @@ import {EventActions} from "./actions/event";
         EventActions
     ],
     bootstrap: [CoreComponent],
-})
-export class RockParadeModule {
-}
+});

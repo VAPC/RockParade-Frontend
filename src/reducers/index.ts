@@ -1,6 +1,3 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs-es/add/operator/switchMap';
-import 'rxjs-es/add/operator/let';
 import {Observable} from 'rxjs-es/Observable';
 
 /**
@@ -11,7 +8,7 @@ import {Observable} from 'rxjs-es/Observable';
  *
  * More: https://drboolean.gitevents.io/mostly-adequate-guide/content/ch5.html
  */
-import {compose} from '@ngrx/core/compose';
+import {compose} from '../utils/compose';
 
 
 /**

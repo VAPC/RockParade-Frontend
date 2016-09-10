@@ -6,6 +6,8 @@ var multiEntry = require('rollup-plugin-multi-entry');
 var PluginError = require('gulp-util').PluginError;
 var ts = require('gulp-typescript');
 var tsProject = ts.createProject('tsconfigTypeChecking.json', {noExternalResolve : true});
+const globals = require('./globals.json');
+
 
 gulp.task('test:tdd', function (done) {
     new Server({
@@ -14,11 +16,6 @@ gulp.task('test:tdd', function (done) {
 });
 
 var rollupBundle = null;
-
-const globals = {
-    '@angular/core': 'ng.core',
-    '@angular/platform-browser-dynamic': 'ng.platformBrowserDynamic'
-};
 
 gulp.task('test:script', function () {
     return rollup({

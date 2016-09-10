@@ -1,6 +1,4 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs-es/add/operator/map';
-import {Observable} from 'rxjs-es/Observable';
+import {Observable} from 'rxjs-es';
 import {Action} from '@ngrx/store';
 import {IEvent} from '../models/IEvent';
 import {EventActions} from '../actions/event';

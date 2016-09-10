@@ -1,20 +1,7 @@
-import 'rxjs-es/add/operator/catch';
-import 'rxjs-es/add/operator/map';
-import 'rxjs-es/add/operator/mapTo';
-import 'rxjs-es/add/operator/filter';
-import 'rxjs-es/add/operator/mergeMap';
-import 'rxjs-es/add/operator/switchMap';
-import 'rxjs-es/add/operator/switchMapTo';
-import 'rxjs-es/add/operator/toArray';
-import 'rxjs-es/add/observable/of';
+import { Observable } from 'rxjs-es';
 import { Injectable } from '@angular/core';
 import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs-es/Observable';
-
-import { AppState } from '../reducers';
 import { EventActions } from '../actions/event';
-import { IEvent } from '../models/IEvent';
-
 
 @Injectable()
 export class EventEffects {
