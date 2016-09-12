@@ -1,102 +1,58 @@
-import { Injectable } from '@angular/core';
 import { Action } from '@ngrx/store';
 import { IEvent } from '../models/IEvent';
+import { label } from '../utils/util';
+
+/**
+ * For each action type in an action group, we make a simple
+ * enum object for all of our action types.
+ *
+ * The 'label' utility function coerces strings into string
+ * literal types and runs a simple check to guarantee all
+ * actions in the application are unique.
+ */
+export const EventActionTypes = {
+    SEARCH: label('[Event] Search'),
+    SEARCH_COMPLETE: label('[Event] Search Complete'),
+    LOAD_EVENT: label('[Event] Load Event'),
+    SELECT: label('[Event] Select'),
+};
 
 
 /**
- * Instead of passing around action string constants and manually recreating
- * action objects at the point of dispatch, we create services encapsulating
- * each appropriate action group. Action types are included as static
- * members and kept next to their action creator. This promotes a
- * uniform interface and single import for appropriate actions
- * within your application components.
+ * Every action is comprised of at least a type and an optional
+ * payload. Expressing actions as classes enables powerful
+ * type checking in our reducer functions.
  */
-@Injectable()
-export class EventActions {
-  static SEARCH = '[Event] Search';
-  search(query: string): Action {
-    return {
-      type: EventActions.SEARCH,
-      payload: query
-    };
-  }
+export class SearchEvents implements Action {
+    type = EventActionTypes.SEARCH;
 
-  static SEARCH_COMPLETE = '[Event] Search Complete';
-  searchComplete(results: IEvent[]): Action {
-    return {
-      type: EventActions.SEARCH_COMPLETE,
-      payload: results
-    };
-  }
-
-  static ADD_TO_COLLECTION = '[Event] Add to Collection';
-  addToCollection(Event: IEvent): Action {
-    return {
-      type: EventActions.ADD_TO_COLLECTION,
-      payload: Event
-    };
-  }
-
-  static ADD_TO_COLLECTION_SUCCESS = '[Event] Add to Collection Success';
-  addToCollectionSuccess(Event: IEvent): Action {
-    return {
-      type: EventActions.ADD_TO_COLLECTION_SUCCESS,
-      payload: Event
-    };
-  }
-
-  static ADD_TO_COLLECTION_FAIL = '[Event] Add to Collection Fail';
-  addToCollectionFail(Event: IEvent): Action {
-    return {
-      type: EventActions.ADD_TO_COLLECTION_FAIL,
-      payload: Event
-    };
-  }
-
-  static REMOVE_FROM_COLLECTION = '[Event] Remove from Collection';
-  removeFromCollection(Event: IEvent): Action {
-    return {
-      type: EventActions.REMOVE_FROM_COLLECTION,
-      payload: Event
-    };
-  }
-
-  static REMOVE_FROM_COLLECTION_SUCCESS = '[Event] Remove From Collection Success';
-  removeFromCollectionSuccess(Event: IEvent): Action {
-    return {
-      type: EventActions.REMOVE_FROM_COLLECTION_SUCCESS,
-      payload: Event
-    };
-  }
-
-  static REMOVE_FROM_COLLECTION_FAIL = '[Event] Remove From Collection Fail';
-  removeFromCollectionFail(Event: IEvent): Action {
-    return {
-      type: EventActions.REMOVE_FROM_COLLECTION_FAIL,
-      payload: Event
-    };
-  }
-
-  static LOAD_COLLECTION = '[Event] Load Collection';
-  loadCollection(): Action {
-    return {
-      type: EventActions.LOAD_COLLECTION
-    };
-  }
-
-  static LOAD_COLLECTION_SUCCESS = '[Event] Load Collection Success';
-  loadCollectionSuccess(Events: IEvent[]): Action {
-    return {
-      type: EventActions.LOAD_COLLECTION_SUCCESS,
-      payload: Events
-    };
-  }
-
-  static LOAD_EVENT = '[Event] Load Event';
-  loadEvent(Event: IEvent): Action {
-    return {
-      type: EventActions.LOAD_EVENT,
-      payload: Event
-    };
-  }
+    constructor(public payload: string) { }
 }
+
+export class SearchEventsComplete implements Action {
+    type = EventActionTypes.SEARCH_COMPLETE;
+
+    constructor(public payload: IEvent[]) { }
+}
+
+export class LoadEvent implements Action {
+    type = EventActionTypes.LOAD_EVENT;
+
+    constructor(public payload: IEvent) { }
+}
+
+export class SelectEvent implements Action {
+    type = EventActionTypes.SELECT;
+
+    constructor(public payload: string) { }
+}
+
+/**
+ * We export a type alias of all actions in this action group
+ * so that reducers can easily compose action types
+ */
+export type EventActions =
+    SearchEvents
+        | SearchEventsComplete
+        | LoadEvent
+        | SelectEvent;

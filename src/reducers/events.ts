@@ -1,32 +1,28 @@
-import {Observable} from 'rxjs-es';
-import {Action} from '@ngrx/store';
+import '@ngrx/core/add/operator/select';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/let';
+import {Observable} from 'rxjs/Observable';
+import {combineLatest} from 'rxjs/observable/combineLatest';
 import {IEvent} from '../models/IEvent';
-import {EventActions} from '../actions/event';
+import {EventActions, EventActionTypes} from '../actions/event';
 
-export interface IEvents {
-    entities: {[id: string]: IEvent};
+
+export interface State {
     ids: string[];
-    total: number;
-    limit: number;
-    offset: number;
+    entities: { [id: string]: IEvent };
+    selectedEventId: string | any;
 }
 
-const initialState: IEvents = {
+const initialState: State = {
     ids: [],
     entities: {},
-    total: 0,
-    limit: 0,
-    offset: 0
+    selectedEventId: null,
 };
 
-export default function (state = initialState, action: Action): IEvents {
+export function reducer(state = initialState, action: EventActions): State {
     switch (action.type) {
-        case EventActions.SEARCH_COMPLETE:
-        case EventActions.LOAD_COLLECTION_SUCCESS: {
-            const events: IEvent[] = action.payload.data;
-            const total = action.payload.total;
-            const limit = action.payload.limit;
-            const offset = action.payload.offset;
+        case EventActionTypes.SEARCH_COMPLETE: {
+            const events = <IEvent[]>action.payload;
             const newEvents = events.filter(event => !state.entities[event.id]);
 
             const newEventIds = newEvents.map(event => event.id);
@@ -39,14 +35,12 @@ export default function (state = initialState, action: Action): IEvents {
             return {
                 ids: [...state.ids, ...newEventIds],
                 entities: Object.assign({}, state.entities, newEventEntities),
-                total,
-                limit,
-                offset
+                selectedEventId: state.selectedEventId
             };
         }
 
-        case EventActions.LOAD_EVENT: {
-            const event: IEvent = action.payload;
+        case EventActionTypes.LOAD_EVENT: {
+            const event = <IEvent>action.payload;
 
             if (state.ids.indexOf(event.id) > -1) {
                 return state;
@@ -57,9 +51,15 @@ export default function (state = initialState, action: Action): IEvents {
                 entities: Object.assign({}, state.entities, {
                     [event.id]: event
                 }),
-                total: state.total,
-                limit: state.limit,
-                offset: state.offset
+                selectedEventId: state.selectedEventId
+            };
+        }
+
+        case EventActionTypes.SELECT: {
+            return {
+                ids: state.ids,
+                entities: state.entities,
+                selectedEventId: action.payload
             };
         }
 
@@ -77,23 +77,31 @@ export default function (state = initialState, action: Action): IEvents {
  * focused so they can be combined and composed to fit each particular
  * use-case.
  */
-export function getEventEntities() {
-    return (state$: Observable<IEvents>) => state$
-        .flatMap(s => s.entities);
+
+export function getEventEntities(state$: Observable<State>) {
+    return state$.select(state => state.entities);
 }
 
-export function getEvent(id: string) {
-    return (state$: Observable<IEvents>) => state$
-        .flatMap(s => s.entities[id]);
+export function getEventIds(state$: Observable<State>) {
+    return state$.select(state => state.ids);
 }
 
-export function getEvents(eventIds: string[]) {
-    return (state$: Observable<IEvents>) => state$
-        .let(getEventEntities())
-        .map(entities => eventIds.map(id => entities[id]));
+export function getSelectedEventId(state$: Observable<State>) {
+    return state$.select(state => state.selectedEventId);
 }
 
-export function hasEvent(id: string) {
-    return (state$: Observable<IEvents>) => state$
-        .subscribe(s => s.ids.indexOf(id) > -1);
+export function getSelectedEvent(state$: Observable<State>) {
+    return combineLatest<{ [id: string]: IEvent }, string>(
+        state$.let(getEventEntities),
+        state$.let(getSelectedEventId)
+    )
+        .map(([ entities, selectedEventId ]) => entities[selectedEventId]);
+}
+
+export function getAllEvents(state$: Observable<State>) {
+    return combineLatest<{ [id: string]: IEvent }, string[]>(
+        state$.let(getEventEntities),
+        state$.let(getEventIds)
+    )
+        .map(([ entities, ids ]) => ids.map(id => entities[id]));
 }

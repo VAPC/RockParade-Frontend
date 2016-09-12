@@ -1,4 +1,11 @@
-import {Observable} from 'rxjs-es/Observable';
+import '@ngrx/core/add/operator/select';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/let';
+import {Observable} from 'rxjs/Observable';
+import {combineLatest} from 'rxjs/observable/combineLatest';
+import {ActionReducer} from '@ngrx/store';
+import * as fromRouter from '@ngrx/router-store';
+import {IEvent} from '../models/IEvent';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -8,8 +15,7 @@ import {Observable} from 'rxjs-es/Observable';
  *
  * More: https://drboolean.gitevents.io/mostly-adequate-guide/content/ch5.html
  */
-import {compose} from '../utils/compose';
-
+import {compose} from '@ngrx/core/compose';
 
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
@@ -21,6 +27,8 @@ import {compose} from '../utils/compose';
  */
 import {combineReducers} from '@ngrx/store';
 
+import {share, Selector} from '../utils/util';
+
 
 /**
  * Every reducer module's default export is the reducer function itself. In
@@ -28,15 +36,15 @@ import {combineReducers} from '@ngrx/store';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import eventsReducer, * as fromEvents from './events';
+import * as fromEvents from './events';
 
 
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
  */
-export interface AppState {
-    events: fromEvents.IEvents;
+export interface State {
+    events: fromEvents.State;
 }
 
 
@@ -47,9 +55,15 @@ export interface AppState {
  * wrapping that in storeLogger. Remember that compose applies
  * the result from right to left.
  */
-export const rootReducer = compose(combineReducers)({
-    events: eventsReducer
-});
+const reducers = {
+    events: fromEvents.reducer,
+};
+
+const combinedReducer = combineReducers(reducers);
+
+export function rootReducer(state: any, action: any) {
+    return combinedReducer(state, action);
+}
 
 
 /**
@@ -62,15 +76,24 @@ export const rootReducer = compose(combineReducers)({
  *
  * ```ts
  * class MyComponent {
- * 	constructor(state$: Observable<AppState>) {
- * 	  this.eventsState$ = state$.let(getBooksState());
+ * 	constructor(state$: Observable<State>) {
+ * 	  this.eventsState$ = state$.let(getEventsState);
  * 	}
  * }
  * ```
+ *
+ * Note that this is equivalent to:
+ * ```ts
+ * class MyComponent {
+ * 	constructor(state$: Observable<State>) {
+ * 	  this.eventsState$ = getEventsState(state$);
+ * 	}
+ * }
+ * ```
+ *
  */
-export function getEventsState() {
-    return (state$: Observable<AppState>) => state$
-        .subscribe(s => s.events);
+export function getEventsState(state$: Observable<State>) {
+    return state$.select(state => state.events);
 }
 
 /**
@@ -79,22 +102,15 @@ export function getEventsState() {
  * need to make new selectors that wrap them.
  *
  * Once again our compose function comes in handy. From right to left, we
- * first select the events state then we pass the state to the event
- * reducer's getBooks selector, finally returning an observable
+ * first select the events state then we pass the state to the book
+ * reducer's getEvents selector, finally returning an observable
  * of search results.
+ *
+ * Share memoizes the selector functions and published the result. This means
+ * every time you call the selector, you will get back the same result
+ * observable. Each subscription to the resultant observable
+ * is shared across all subscribers.
  */
-export function getEventEntities() {
-    return compose(fromEvents.getEventEntities(), getEventsState());
-}
-
-export function getEvent(id: string) {
-    return compose(fromEvents.getEvent(id), getEventsState());
-}
-
-export function hasEvent(id: string) {
-    return compose(fromEvents.hasEvent(id), getEventsState());
-}
-
-export function getEvents(eventIds: string[]) {
-    return compose(fromEvents.getEvents(eventIds), getEventsState());
-}
+export const getEventEntities = share(compose(fromEvents.getEventEntities, getEventsState));
+export const getEventIds = share(compose(fromEvents.getEventIds, getEventsState));
+export const getSelectedEvent = share(compose(fromEvents.getSelectedEvent, getEventsState));
