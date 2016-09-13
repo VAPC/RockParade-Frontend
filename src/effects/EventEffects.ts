@@ -9,13 +9,8 @@ import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import 'rxjs/add/observable/of';
-import { Injectable } from '@angular/core';
-import { Effect, Actions } from '@ngrx/effects';
-import { Observable } from 'rxjs/Observable';
-import { empty } from 'rxjs/observable/empty';
-
-import { EventActionTypes, SearchEventsComplete } from '../actions/event';
-import { IEvent } from '../models/IEvent';
+import {Injectable} from '@angular/core';
+import {Actions} from '@ngrx/effects';
 
 
 /**
@@ -34,7 +29,6 @@ import { IEvent } from '../models/IEvent';
 
 @Injectable()
 export class EventEffects {
-    constructor(
-        private actions$: Actions
-    ) { }
+    constructor(private actions$: Actions) {
+    }
 }

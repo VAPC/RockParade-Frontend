@@ -2,10 +2,6 @@ import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/let';
 import {Observable} from 'rxjs/Observable';
-import {combineLatest} from 'rxjs/observable/combineLatest';
-import {ActionReducer} from '@ngrx/store';
-import * as fromRouter from '@ngrx/router-store';
-import {IEvent} from '../models/IEvent';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give

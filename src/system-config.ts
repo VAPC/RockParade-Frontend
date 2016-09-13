@@ -9,39 +9,39 @@
  **********************************************************************************************/
 /** Map relative paths to URLs. */
 const map: any = {
-    'main': 'main.js'
+    // 'main': 'main.js'
 };
 
 /** User packages configuration. */
 const packages: any = {
-    'actions': {
-        main: 'event.js',
-        defaultExtension: 'js'
-    },
-    'app': {
-        main: 'index.js',
-        defaultExtension: 'js'
-    },
-    'effects': {
-        main: 'EventEffects.js',
-        defaultExtension: 'js'
-    },
-    'events': {
-        main: 'events.cmt.js',
-        defaultExtension: 'js'
-    },
-    'reducers': {
-        main: 'index.js',
-        defaultExtension: 'js'
-    },
-    'routes': {
-        main: 'routes.js',
-        defaultExtension: 'js'
-    },
-    'utils': {
-        main: 'util.js',
-        defaultExtension: 'js'
-    }
+    // 'actions': {
+    //     main: 'event.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'app': {
+    //     main: 'index.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'effects': {
+    //     main: 'EventEffects.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'events': {
+    //     main: 'events.cmt.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'reducers': {
+    //     main: 'index.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'routes': {
+    //     main: 'routes.js',
+    //     defaultExtension: 'js'
+    // },
+    // 'utils': {
+    //     main: 'util.js',
+    //     defaultExtension: 'js'
+    // }
 };
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
@@ -65,13 +65,17 @@ const barrels: string[] = [
     '@ngrx/effects',
 
     // App specific barrels.
-
+    'app',
+    'app/shared',
+    'effects',
+    'reducers',
+    'routes'
     /** @cli-barrel */
 ];
 
 const cliSystemConfigPackages: any = {};
 barrels.forEach((barrelName: string) => {
-    cliSystemConfigPackages[barrelName] = {main: 'index.js', defaultExtension: 'js'};
+    cliSystemConfigPackages[barrelName] = {main: 'index'};
 });
 
 /** Type declaration for ambient System. */
@@ -80,9 +84,10 @@ declare var System: any;
 // Apply the CLI SystemJS configuration.
 System.config({
     map: {
+        'rxjs': 'vendor/rxjs',
         '@angular': 'vendor/@angular',
-        '@ngrx': 'vendor/@ngrx',
-        'rxjs': 'vendor/rxjs'
+        // '@ngrx': 'vendor/@ngrx',
+        'main': 'main.js'
     },
     packages: cliSystemConfigPackages
 });

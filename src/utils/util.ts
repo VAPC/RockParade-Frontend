@@ -1,6 +1,5 @@
 import 'rxjs/add/operator/publishReplay';
 import { Observable } from 'rxjs/Observable';
-import { compose } from '@ngrx/core/compose';
 
 /**
  * This function coerces a string into a string literal type.
