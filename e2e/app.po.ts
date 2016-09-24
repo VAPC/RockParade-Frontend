@@ -1,6 +1,6 @@
 import { browser, element, by } from 'protractor/globals';
 
-export class RockParade2Page {
+export class RockParadePage {
   navigateTo() {
     return browser.get('/');
   }

@@ -1,15 +1,15 @@
 import {Routes} from '@angular/router';
-import {EventsComponent} from '../events/events.cmt'
-import {EventComponent} from '../events/event.cmt'
+import {RPEventsComponent} from "../app/rpEvents/rpEvents.component";
+import {RPEventComponent} from "../app/rpEvent/rpEvent.component";
 
 const routes: Routes = [
     {
         path: '',
-        component: EventsComponent
+        component: RPEventsComponent
     },
     {
         path: 'event/:id',
-        component: EventComponent
+        component: RPEventComponent
     }
 ];
 

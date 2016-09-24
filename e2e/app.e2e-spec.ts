@@ -1,10 +1,10 @@
-import { RockParade2Page } from './app.po';
+import { RockParadePage } from './app.po';
 
 describe('rock-parade2 App', function() {
-  let page: RockParade2Page;
+  let page: RockParadePage;
 
   beforeEach(() => {
-    page = new RockParade2Page();
+    page = new RockParadePage();
   });
 
   it('should display message saying app works', () => {

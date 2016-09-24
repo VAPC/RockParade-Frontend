@@ -8,10 +8,14 @@ import {BrowserModule} from '@angular/platform-browser';
 import routes from "../routes/routes";
 import {EffectsModule} from '@ngrx/effects';
 import {rootReducer} from '../reducers';
+import {RPEventsComponent} from "./rpEvents/rpEvents.component";
+import {RPEventComponent} from "./rpEvent/rpEvent.component";
 
 @NgModule({
     declarations: [
-        AppComponent
+        AppComponent,
+        RPEventsComponent,
+        RPEventComponent
     ],
     imports: [
         BrowserModule,
