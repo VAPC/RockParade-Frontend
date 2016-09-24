@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { IEvent } from '../models/IEvent';
 import { label } from '../utils/util';
+import {IEvents} from "../models/IEvents";
 
 /**
  * For each action type in an action group, we make a simple
@@ -14,6 +15,8 @@ export const EventActionTypes = {
     SEARCH: label('[Event] Search'),
     SEARCH_COMPLETE: label('[Event] Search Complete'),
     LOAD_EVENT: label('[Event] Load Event'),
+    LOAD_EVENTS: label('[Event] Load Events'),
+    LOAD_EVENTS_COMPLETE: label('[Event] Load Events complete'),
     SELECT: label('[Event] Select'),
 };
 
@@ -41,6 +44,18 @@ export class LoadEvent implements Action {
     constructor(public payload: IEvent) { }
 }
 
+export class LoadEvents implements Action {
+    type = EventActionTypes.LOAD_EVENTS;
+
+    constructor(public payload?: {limit: number, offset: number}) { }
+}
+
+export class LoadEventsComplete implements Action {
+    type = EventActionTypes.LOAD_EVENTS_COMPLETE;
+
+    constructor(public payload: IEvents) { }
+}
+
 export class SelectEvent implements Action {
     type = EventActionTypes.SELECT;
 
@@ -55,4 +70,6 @@ export type EventActions =
     SearchEvents
         | SearchEventsComplete
         | LoadEvent
+        | LoadEvents
+        | LoadEventsComplete
         | SelectEvent;

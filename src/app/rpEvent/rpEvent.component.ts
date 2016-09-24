@@ -8,8 +8,7 @@ import {Input} from "@angular/core/src/metadata/directives";
   template: `<li>{{event.id}} <b>{{event.name}}</b></li>`
 })
 export class RPEventComponent implements OnInit {
-  @Input()
-  event: IEvent;
+  @Input() event: IEvent;
   constructor() { }
 
   ngOnInit() {

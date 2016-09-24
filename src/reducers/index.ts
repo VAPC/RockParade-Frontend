@@ -32,7 +32,7 @@ import {share, Selector} from '../utils/util';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as fromEvents from './events';
+import * as fromEvents from './eventsReducer';
 
 
 /**
@@ -110,3 +110,4 @@ export function getEventsState(state$: Observable<State>) {
 export const getEventEntities = share(compose(fromEvents.getEventEntities, getEventsState));
 export const getEventIds = share(compose(fromEvents.getEventIds, getEventsState));
 export const getSelectedEvent = share(compose(fromEvents.getSelectedEvent, getEventsState));
+export const getEventsCollection = share(compose(fromEvents.getEventsCollection, getEventsState));

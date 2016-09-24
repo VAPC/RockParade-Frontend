@@ -4,19 +4,27 @@ import 'rxjs/add/operator/let';
 import {Observable} from 'rxjs/Observable';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {IEvent} from '../models/IEvent';
-import {EventActions, EventActionTypes} from '../actions/event';
+import {EventActions, EventActionTypes} from '../actions/eventsActions';
+import {IEvents} from "../models/IEvents";
+import {share} from "../utils/util";
 
 
 export interface State {
     ids: string[];
     entities: { [id: string]: IEvent };
     selectedEventId: string | any;
+    total: number;
+    limit: number;
+    offset: number
 }
 
 const initialState: State = {
     ids: [],
     entities: {},
     selectedEventId: null,
+    total: 0,
+    limit: 10,
+    offset: 0
 };
 
 export function reducer(state = initialState, action: EventActions): State {
@@ -35,7 +43,10 @@ export function reducer(state = initialState, action: EventActions): State {
             return {
                 ids: [...state.ids, ...newEventIds],
                 entities: Object.assign({}, state.entities, newEventEntities),
-                selectedEventId: state.selectedEventId
+                selectedEventId: state.selectedEventId,
+                limit: state.limit,
+                offset: state.offset,
+                total: state.total
             };
         }
 
@@ -51,7 +62,29 @@ export function reducer(state = initialState, action: EventActions): State {
                 entities: Object.assign({}, state.entities, {
                     [event.id]: event
                 }),
-                selectedEventId: state.selectedEventId
+                selectedEventId: state.selectedEventId,
+                limit: state.limit,
+                offset: state.offset,
+                total: state.total
+            };
+        }
+
+        case EventActionTypes.LOAD_EVENTS: {
+            const events = <IEvents>action.payload;
+            const data = events.data;
+            const ids = [];
+            const entities = {};
+            data.forEach((item) => {
+                ids.push(item.id);
+                entities[item.id] = item;
+            });
+            return {
+                ids,
+                entities,
+                selectedEventId: state.selectedEventId,
+                total: events.total,
+                limit: events.limit,
+                offset: events.offset
             };
         }
 
@@ -59,7 +92,10 @@ export function reducer(state = initialState, action: EventActions): State {
             return {
                 ids: state.ids,
                 entities: state.entities,
-                selectedEventId: action.payload
+                selectedEventId: action.payload,
+                limit: state.limit,
+                offset: state.offset,
+                total: state.total
             };
         }
 
@@ -81,6 +117,15 @@ export function reducer(state = initialState, action: EventActions): State {
 export function getEventEntities(state$: Observable<State>) {
     return state$.select(state => state.entities);
 }
+
+export const getEventsCollection = share(function (state$: Observable<State>) {
+    return combineLatest<{ [id: string]: IEvent }, string[]>(
+        state$.let(getEventEntities),
+        state$.let(getEventIds)
+    )
+        .map(([ entities, ids ]) => ids.map(id => entities[id]));
+});
+
 
 export function getEventIds(state$: Observable<State>) {
     return state$.select(state => state.ids);

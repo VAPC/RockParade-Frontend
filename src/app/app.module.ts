@@ -10,12 +10,15 @@ import {EffectsModule} from '@ngrx/effects';
 import {rootReducer} from '../reducers';
 import {RPEventsComponent} from "./rpEvents/rpEvents.component";
 import {RPEventComponent} from "./rpEvent/rpEvent.component";
+import {EventsEndpointService} from "./events-endpoint.service";
+import { RPEventsLayoutComponent } from './rp-events-layout/rp-events-layout.component';
 
 @NgModule({
     declarations: [
         AppComponent,
         RPEventsComponent,
-        RPEventComponent
+        RPEventComponent,
+        RPEventsLayoutComponent
     ],
     imports: [
         BrowserModule,
@@ -26,7 +29,7 @@ import {RPEventComponent} from "./rpEvent/rpEvent.component";
         StoreModule.provideStore(rootReducer),
         EffectsModule.run(EventEffects)
     ],
-    providers: [],
+    providers: [EventsEndpointService],
     bootstrap: [AppComponent],
 })
 
