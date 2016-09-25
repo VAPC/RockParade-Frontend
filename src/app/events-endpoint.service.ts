@@ -5,7 +5,7 @@ import {IEvents} from "../models/IEvents";
 
 @Injectable()
 export class EventsEndpointService {
-  private API_PATH: string = 'www.http://rockparade.creora.ru/api/events';
+  private API_PATH: string = 'http://rockparade.creora.ru/api/events';
 
   constructor(private http: Http) { }
 

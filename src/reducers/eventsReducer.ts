@@ -69,7 +69,7 @@ export function reducer(state = initialState, action: EventActions): State {
             };
         }
 
-        case EventActionTypes.LOAD_EVENTS: {
+        case EventActionTypes.LOAD_EVENTS_COMPLETE: {
             const events = <IEvents>action.payload;
             const data = events.data;
             const ids = [];
