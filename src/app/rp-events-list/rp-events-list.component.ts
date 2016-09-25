@@ -1,19 +1,22 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
 import {IEvent} from "../../models/IEvent";
+import {Observable} from "rxjs";
 import {Store} from "@ngrx/store";
 import {LoadEvents} from "../../actions/eventsActions";
 import * as fromRoot from "../../reducers/index";
 
+
 @Component({
-    selector: 'rp-events-layout',
-    styleUrls: ['./rp-events-layout.component.css'],
-    templateUrl: `
-        <h1>RockParade events</h1>
-        <rp-events [events]="events$ | async"></rp-events>
-    `,
+    selector: 'rp-events-list',
+    styleUrls: ['./rp-events-list.component.css'],
+    template: `
+        <h2>Events list: </h2>
+        <ul class="events">
+          <rp-event *ngFor="let item of events$ | async" [event]="item"></rp-event>
+        </ul>
+    `
 })
-export class RPEventsLayoutComponent implements OnInit {
+export class RPEventsListComponent {
     events$: Observable<IEvent[]>;
 
     constructor(private store: Store<fromRoot.State>) {

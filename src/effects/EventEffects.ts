@@ -12,8 +12,7 @@ import 'rxjs/add/observable/of';
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
 import {EventActions, EventActionTypes, LoadEventsComplete} from "../actions/eventsActions";
-import {empty} from "rxjs/observable/empty";
-import {EventsEndpointService} from "../app/events-endpoint.service";
+import {EventsEndpointService} from "../endpoints/events-endpoint.service";
 import {Observable} from "rxjs";
 
 

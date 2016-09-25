@@ -3,8 +3,8 @@ import {IEvent} from "../../models/IEvent";
 import {Input} from "@angular/core/src/metadata/directives";
 
 @Component({
-  selector: 'rp-event-item',
-  styleUrls: ['./rpEvent.component.css'],
+  selector: 'rp-event',
+  styleUrls: ['./rp-event.component.css'],
   template: `<li>{{event.id}} <b>{{event.name}}</b></li>`
 })
 export class RPEventComponent implements OnInit {

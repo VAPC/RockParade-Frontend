@@ -32,7 +32,7 @@ import {share, Selector} from '../utils/util';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import * as fromEvents from './eventsReducer';
+import eventReducer, * as fromEvents from './events/eventsReducer';
 
 
 /**
@@ -52,7 +52,7 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-    events: fromEvents.reducer,
+    events: eventReducer,
 };
 
 const combinedReducer = combineReducers(reducers);
