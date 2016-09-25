@@ -11,6 +11,10 @@ describe('Events', () => {
 
             expect(initialState.ids).toEqual([]);
             expect(initialState.entities).toEqual({});
+            expect(initialState.selectedEventId).toEqual(null);
+            expect(initialState.total).toEqual(0);
+            expect(initialState.limit).toEqual(10);
+            expect(initialState.offset).toEqual(0);
         });
 
         it('should add events collection to the entities table and theirs IDs to the IDs list when loaded', () => {
@@ -23,6 +27,9 @@ describe('Events', () => {
 
             expect(state.ids).toEqual(TestEvents.data.map((item) => item.id));
             expect(state.entities).toEqual(entities);
+            expect(state.total).toEqual(1);
+            expect(state.limit).toEqual(50);
+            expect(state.offset).toEqual(0);
         });
     });
 

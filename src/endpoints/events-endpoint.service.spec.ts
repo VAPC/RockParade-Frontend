@@ -1,12 +1,15 @@
 /* tslint:disable:no-unused-variable */
 
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 import { EventsEndpointService } from './events-endpoint.service';
+import {XHRBackend, HttpModule} from '@angular/http';
+import {MockBackend} from '@angular/http/testing';
 
 describe('Service: EventsEndpoint', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [EventsEndpointService]
+      imports: [ HttpModule ],
+      providers: [EventsEndpointService, { provide: XHRBackend, useClass: MockBackend }]
     });
   });
 

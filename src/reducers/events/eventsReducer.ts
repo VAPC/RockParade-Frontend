@@ -28,80 +28,84 @@ const initialState: State = {
 };
 
 export default function (state = initialState, action?: EventActions): State {
-    switch (action.type) {
-        case EventActionTypes.SEARCH_COMPLETE: {
-            const events = <IEvent[]>action.payload;
-            const newEvents = events.filter(event => !state.entities[event.id]);
+    if (action) {
+        switch (action.type) {
+            case EventActionTypes.SEARCH_COMPLETE: {
+                const events = <IEvent[]>action.payload;
+                const newEvents = events.filter(event => !state.entities[event.id]);
 
-            const newEventIds = newEvents.map(event => event.id);
-            const newEventEntities = newEvents.reduce((entities: { [id: string]: IEvent }, event: IEvent) => {
-                return Object.assign(entities, {
-                    [event.id]: event
-                });
-            }, {});
+                const newEventIds = newEvents.map(event => event.id);
+                const newEventEntities = newEvents.reduce((entities: { [id: string]: IEvent }, event: IEvent) => {
+                    return Object.assign(entities, {
+                        [event.id]: event
+                    });
+                }, {});
 
-            return {
-                ids: [...state.ids, ...newEventIds],
-                entities: Object.assign({}, state.entities, newEventEntities),
-                selectedEventId: state.selectedEventId,
-                limit: state.limit,
-                offset: state.offset,
-                total: state.total
-            };
-        }
-
-        case EventActionTypes.LOAD_EVENT: {
-            const event = <IEvent>action.payload;
-
-            if (state.ids.indexOf(event.id) > -1) {
-                return state;
+                return {
+                    ids: [...state.ids, ...newEventIds],
+                    entities: Object.assign({}, state.entities, newEventEntities),
+                    selectedEventId: state.selectedEventId,
+                    limit: state.limit,
+                    offset: state.offset,
+                    total: state.total
+                };
             }
 
-            return {
-                ids: [...state.ids, event.id],
-                entities: Object.assign({}, state.entities, {
-                    [event.id]: event
-                }),
-                selectedEventId: state.selectedEventId,
-                limit: state.limit,
-                offset: state.offset,
-                total: state.total
-            };
-        }
+            case EventActionTypes.LOAD_EVENT: {
+                const event = <IEvent>action.payload;
 
-        case EventActionTypes.LOAD_EVENTS_COMPLETE: {
-            const events = <IEvents>action.payload;
-            const data = events.data;
-            const ids = [];
-            const entities = {};
-            data.forEach((item) => {
-                ids.push(item.id);
-                entities[item.id] = item;
-            });
-            return {
-                ids,
-                entities,
-                selectedEventId: state.selectedEventId,
-                total: events.total,
-                limit: events.limit,
-                offset: events.offset
-            };
-        }
+                if (state.ids.indexOf(event.id) > -1) {
+                    return state;
+                }
 
-        case EventActionTypes.SELECT: {
-            return {
-                ids: state.ids,
-                entities: state.entities,
-                selectedEventId: action.payload,
-                limit: state.limit,
-                offset: state.offset,
-                total: state.total
-            };
-        }
+                return {
+                    ids: [...state.ids, event.id],
+                    entities: Object.assign({}, state.entities, {
+                        [event.id]: event
+                    }),
+                    selectedEventId: state.selectedEventId,
+                    limit: state.limit,
+                    offset: state.offset,
+                    total: state.total
+                };
+            }
 
-        default: {
-            return state;
+            case EventActionTypes.LOAD_EVENTS_COMPLETE: {
+                const events = <IEvents>action.payload;
+                const data = events.data;
+                const ids = [];
+                const entities = {};
+                data.forEach((item) => {
+                    ids.push(item.id);
+                    entities[item.id] = item;
+                });
+                return {
+                    ids,
+                    entities,
+                    selectedEventId: state.selectedEventId,
+                    total: events.total,
+                    limit: events.limit,
+                    offset: events.offset
+                };
+            }
+
+            case EventActionTypes.SELECT: {
+                return {
+                    ids: state.ids,
+                    entities: state.entities,
+                    selectedEventId: action.payload,
+                    limit: state.limit,
+                    offset: state.offset,
+                    total: state.total
+                };
+            }
+
+            default: {
+                return state;
+            }
         }
+    } else {
+        return state;
     }
 }
 
