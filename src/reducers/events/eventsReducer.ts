@@ -5,8 +5,8 @@ import {Observable} from 'rxjs/Observable';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {IEvent} from '../../models/IEvent';
 import {EventActions, EventActionTypes} from '../../actions/eventsActions';
-import {IEvents} from "../../models/IEvents";
-import {share} from "../../utils/util";
+import {IEvents} from '../../models/IEvents';
+import {share} from '../../utils/util';
 
 
 export interface State {
@@ -15,7 +15,7 @@ export interface State {
     selectedEventId: string | any;
     total: number;
     limit: number;
-    offset: number
+    offset: number;
 }
 
 const initialState: State = {
@@ -27,7 +27,7 @@ const initialState: State = {
     offset: 0
 };
 
-export default function(state = initialState, action?: EventActions): State {
+export default function (state = initialState, action?: EventActions): State {
     switch (action.type) {
         case EventActionTypes.SEARCH_COMPLETE: {
             const events = <IEvent[]>action.payload;

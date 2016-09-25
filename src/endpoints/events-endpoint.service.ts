@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import {Http} from "@angular/http";
-import {Observable} from "rxjs";
-import {IEvents} from "../models/IEvents";
+import {Http} from '@angular/http';
+import {Observable} from 'rxjs';
+import {IEvents} from '../models/IEvents';
 
 @Injectable()
 export class EventsEndpointService {

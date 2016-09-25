@@ -1,4 +1,4 @@
-import {IEvents} from "../../models/IEvents";
+import {IEvents} from '../../models/IEvents';
 
 export const TestEvents: IEvents = {
     data: [
@@ -9,8 +9,16 @@ export const TestEvents: IEvents = {
             description: 'The most greatest event! Please come.',
             place: 'Woodstock',
             creator: 'petr',
-            images: ['http:\/\/rockparade.creora.ru\/api\/event\/test\/image\/5ea63678906477542af156d44a735706-test%20image.png'],
-            links: [{'id': '123123', 'url': 'http:\/\/rockparade.creora.ru', 'description': 'Rockparade link'}]
+            images: [
+                'http:\/\/rockparade.creora.ru\/api\/event\/test\/image\/5ea63678906477542af156d44a735706-test%20image.png'
+            ],
+            links: [
+                {
+                    id: '123123',
+                    url: 'http:\/\/rockparade.creora.ru',
+                    description: 'Rockparade link'
+                }
+            ]
         }
     ],
     total: 1,

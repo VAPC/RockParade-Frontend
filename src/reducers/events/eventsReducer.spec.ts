@@ -2,7 +2,7 @@ import 'rxjs/add/operator/let';
 import {of} from 'rxjs/observable/of';
 import {LoadEventsComplete} from '../../../src/actions/eventsActions';
 import eventsReducer, * as fromEvents from './eventsReducer';
-import {TestEvents} from 'eventsMock';
+import {TestEvents} from './eventsMock';
 
 describe('Events', () => {
     describe('Reducer', () => {
