@@ -1,9 +1,9 @@
 import {Component, OnInit} from '@angular/core';
-import {IEvent} from '../../models/IEvent';
 import {Observable} from 'rxjs';
 import {Store} from '@ngrx/store';
-import {LoadEvents} from '../../actions/eventsActions';
-import * as fromRoot from '../../reducers/index';
+import {LoadEvents} from '../actions/eventsActions';
+import * as fromRoot from '../reducers/index';
+import {IEvent} from '../models/IEvent';
 
 
 @Component({

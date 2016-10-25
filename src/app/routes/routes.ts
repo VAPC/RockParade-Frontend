@@ -1,6 +1,6 @@
 import {Routes} from '@angular/router';
-import {RPEventComponent} from '../app/rp-event/rp-event.component';
-import {RPEventsListComponent} from '../app/rp-events-list/rp-events-list.component';
+import {RPEventsListComponent} from '../rp-events-list/rp-events-list.component';
+import {RPEventComponent} from '../rp-event/rp-event.component';
 
 const routes: Routes = [
     {

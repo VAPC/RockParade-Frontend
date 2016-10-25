@@ -4,8 +4,8 @@ import 'rxjs/add/operator/let';
 import {Observable} from 'rxjs/Observable';
 import {combineLatest} from 'rxjs/observable/combineLatest';
 import {IEvent} from '../../models/IEvent';
-import {EventActions, EventActionTypes} from '../../actions/eventsActions';
 import {IEvents} from '../../models/IEvents';
+import {EventActions, EventActionTypes} from '../../actions/eventsActions';
 
 export interface State {
     ids: string[];
