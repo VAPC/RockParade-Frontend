@@ -5,6 +5,7 @@
 RockParade
 ==========
 Social network for musicians and concert organizers
+https://vapc.github.io/RockParade-Frontend/#/
 
 Conversation
 ============
