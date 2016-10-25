@@ -1,4 +1,4 @@
-import {ILink} from "./ILinks";
+import {ILink} from './ILinks';
 export interface IEvent {
     id: string;
     date: string;
@@ -6,7 +6,6 @@ export interface IEvent {
     description: string;
     place: string;
     creator: string;
-    images: string[],
+    images: string[];
     links: ILink[];
 }
-

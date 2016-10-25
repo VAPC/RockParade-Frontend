@@ -2,6 +2,11 @@ import '@ngrx/core/add/operator/select';
 import 'rxjs/add/operator/switchMap';
 import 'rxjs/add/operator/let';
 import {Observable} from 'rxjs/Observable';
+import {compose} from '@ngrx/core/compose';
+import {combineReducers} from '@ngrx/store';
+import {share} from '../utils/util';
+import eventReducer from './events/eventsReducer';
+import * as fromEvents from './events/eventsReducer';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -11,7 +16,6 @@ import {Observable} from 'rxjs/Observable';
  *
  * More: https://drboolean.gitevents.io/mostly-adequate-guide/content/ch5.html
  */
-import {compose} from '@ngrx/core/compose';
 
 /**
  * combineReducers is another useful metareducer that takes a map of reducer
@@ -21,9 +25,6 @@ import {compose} from '@ngrx/core/compose';
  *
  * More: https://egghead.io/lessons/javascript-redux-implementing-combinereducers-from-scratch
  */
-import {combineReducers} from '@ngrx/store';
-
-import {share, Selector} from '../utils/util';
 
 
 /**
@@ -32,7 +33,6 @@ import {share, Selector} from '../utils/util';
  * the state of the reducer plus any selector functions. The `* as`
  * notation packages up all of the exports into a single object.
  */
-import eventReducer, * as fromEvents from './events/eventsReducer';
 
 
 /**

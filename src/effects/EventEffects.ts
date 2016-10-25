@@ -1,19 +1,14 @@
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/filter';
-import 'rxjs/add/operator/mergeMap';
 import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/toArray';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/debounceTime';
 import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
-import 'rxjs/add/observable/of';
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {EventActions, EventActionTypes, LoadEventsComplete} from "../actions/eventsActions";
-import {EventsEndpointService} from "../endpoints/events-endpoint.service";
-import {Observable} from "rxjs";
+import {EventActionTypes, LoadEventsComplete} from '../actions/eventsActions';
+import {EventsEndpointService} from '../endpoints/events-endpoint.service';
+import {Observable} from 'rxjs';
+import {Action} from '@ngrx/store';
 
 
 /**
@@ -32,10 +27,8 @@ import {Observable} from "rxjs";
 
 @Injectable()
 export class EventEffects {
-    constructor(private actions$: Actions, private eventsEndpointService: EventsEndpointService) {
-    }
-
-    @Effect() loadEvents$ = this.actions$
+    @Effect()
+    loadEvents$: Observable<Action> = this.actions$
         .ofType(EventActionTypes.LOAD_EVENTS)
         .map<{limit: number, offset: number}>(action => action.payload)
         .switchMap(query => {
@@ -46,6 +39,10 @@ export class EventEffects {
                     total: 0,
                     limit: 0,
                     offset: 0
-                })))
+                })));
         });
+
+    constructor(private actions$: Actions, private eventsEndpointService: EventsEndpointService) {
+    }
+
 }

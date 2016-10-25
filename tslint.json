@@ -46,6 +46,7 @@
     "no-inferrable-types": true,
     "no-shadowed-variable": true,
     "no-string-literal": false,
+    "no-switch-case-fall-through": false,
     "no-trailing-whitespace": true,
     "no-unused-expression": true,
     "no-unused-variable": true,
@@ -92,8 +93,8 @@
       "check-type"
     ],
 
-    "directive-selector-prefix": [true, "app"],
-    "component-selector-prefix": [true, "app"],
+    "directive-selector-prefix": [true, "rp"],
+    "component-selector-prefix": [true, "rp"],
     "directive-selector-name": [true, "camelCase"],
     "component-selector-name": [true, "kebab-case"],
     "directive-selector-type": [true, "attribute"],
@@ -106,6 +107,8 @@
     "use-life-cycle-interface": true,
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
-    "directive-class-suffix": true
+    "directive-class-suffix": true,
+    "templates-use-public": true,
+    "invoke-injectable": true
   }
 }

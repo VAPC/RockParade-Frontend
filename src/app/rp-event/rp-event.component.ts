@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {IEvent} from "../../models/IEvent";
-import {Input} from "@angular/core/src/metadata/directives";
+import {IEvent} from '../../models/IEvent';
+import {Input} from '@angular/core/src/metadata/directives';
 
 @Component({
   selector: 'rp-event',
