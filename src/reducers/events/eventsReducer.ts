@@ -6,8 +6,6 @@ import {combineLatest} from 'rxjs/observable/combineLatest';
 import {IEvent} from '../../models/IEvent';
 import {EventActions, EventActionTypes} from '../../actions/eventsActions';
 import {IEvents} from '../../models/IEvents';
-import {share} from '../../utils/util';
-
 
 export interface State {
     ids: string[];
@@ -121,15 +119,6 @@ export default function (state = initialState, action?: EventActions): State {
 export function getEventEntities(state$: Observable<State>) {
     return state$.select(state => state.entities);
 }
-
-export const getEventsCollection = share(function (state$: Observable<State>) {
-    return combineLatest<{ [id: string]: IEvent }, string[]>(
-        state$.let(getEventEntities),
-        state$.let(getEventIds)
-    )
-        .map(([ entities, ids ]) => ids.map(id => entities[id]));
-});
-
 
 export function getEventIds(state$: Observable<State>) {
     return state$.select(state => state.ids);

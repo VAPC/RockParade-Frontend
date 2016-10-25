@@ -5,7 +5,7 @@ import 'rxjs/add/operator/skip';
 import 'rxjs/add/operator/takeUntil';
 import {Injectable} from '@angular/core';
 import {Actions, Effect} from '@ngrx/effects';
-import {EventActionTypes, LoadEventsComplete} from '../actions/eventsActions';
+import {EventActionTypes, LoadEventsComplete, LoadEvents} from '../actions/eventsActions';
 import {EventsEndpointService} from '../endpoints/events-endpoint.service';
 import {Observable} from 'rxjs';
 import {Action} from '@ngrx/store';
@@ -30,8 +30,8 @@ export class EventEffects {
     @Effect()
     loadEvents$: Observable<Action> = this.actions$
         .ofType(EventActionTypes.LOAD_EVENTS)
-        .map<{limit: number, offset: number}>(action => action.payload)
-        .switchMap(query => {
+        .map((action: LoadEvents) => action.payload)
+        .switchMap((query) => {
             return this.eventsEndpointService.loadEvents(query)
                 .map(events => new LoadEventsComplete(events))
                 .catch(() => Observable.of(new LoadEventsComplete({

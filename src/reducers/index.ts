@@ -110,4 +110,4 @@ export function getEventsState(state$: Observable<State>) {
 export const getEventEntities = share(compose(fromEvents.getEventEntities, getEventsState));
 export const getEventIds = share(compose(fromEvents.getEventIds, getEventsState));
 export const getSelectedEvent = share(compose(fromEvents.getSelectedEvent, getEventsState));
-export const getEventsCollection = share(compose(fromEvents.getEventsCollection, getEventsState));
+export const getEventsCollection = share(compose(fromEvents.getAllEvents, getEventsState));
