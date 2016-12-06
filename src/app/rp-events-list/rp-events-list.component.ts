@@ -4,6 +4,7 @@ import {Store} from '@ngrx/store';
 import {LoadEvents} from '../actions/eventsActions';
 import * as fromRoot from '../reducers/index';
 import {IEvent} from '../models/IEvent';
+import { getEventsCollection } from '../reducers/index';
 
 
 @Component({
@@ -20,7 +21,7 @@ export class RPEventsListComponent implements OnInit {
     events$: Observable<IEvent[]>;
 
     constructor(private store: Store<fromRoot.State>) {
-        this.events$ = store.let(fromRoot.getEventsCollection);
+        this.events$ = store.select(getEventsCollection);
     }
 
     ngOnInit() {

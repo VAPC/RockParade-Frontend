@@ -1,12 +1,7 @@
-import '@ngrx/core/add/operator/select';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/let';
-import {Observable} from 'rxjs/Observable';
-import {compose} from '@ngrx/core/compose';
-import {combineReducers} from '@ngrx/store';
-import {share} from '../utils/util';
-import eventReducer from './events/eventsReducer';
+import { combineReducers } from '@ngrx/store';
 import * as fromEvents from './events/eventsReducer';
+import { createSelector } from 'reselect';
+import { IEvent } from '../models/IEvent';
 
 /**
  * The compose function is one of our most handy tools. In basic terms, you give
@@ -34,7 +29,6 @@ import * as fromEvents from './events/eventsReducer';
  * notation packages up all of the exports into a single object.
  */
 
-
 /**
  * As mentioned, we treat each reducer like a table in a database. This means
  * our top level state interface is just a map of keys to inner state types.
@@ -42,7 +36,6 @@ import * as fromEvents from './events/eventsReducer';
 export interface State {
     events: fromEvents.State;
 }
-
 
 /**
  * Because metareducers take a reducer function and return a new reducer,
@@ -52,7 +45,7 @@ export interface State {
  * the result from right to left.
  */
 const reducers = {
-    events: eventReducer,
+    events: fromEvents.reducer,
 };
 
 const combinedReducer = combineReducers(reducers);
@@ -60,7 +53,6 @@ const combinedReducer = combineReducers(reducers);
 export function rootReducer(state: any, action: any) {
     return combinedReducer(state, action);
 }
-
 
 /**
  * A selector function is a map function factory. We pass it parameters and it
@@ -88,9 +80,7 @@ export function rootReducer(state: any, action: any) {
  * ```
  *
  */
-export function getEventsState(state$: Observable<State>) {
-    return state$.select(state => state.events);
-}
+export const getEventsState = (state: State) => state.events;
 
 /**
  * Every reducer module exports selector functions, however child reducers
@@ -107,7 +97,7 @@ export function getEventsState(state$: Observable<State>) {
  * observable. Each subscription to the resultant observable
  * is shared across all subscribers.
  */
-export const getEventEntities = share(compose(fromEvents.getEventEntities, getEventsState));
-export const getEventIds = share(compose(fromEvents.getEventIds, getEventsState));
-export const getSelectedEvent = share(compose(fromEvents.getSelectedEvent, getEventsState));
-export const getEventsCollection = share(compose(fromEvents.getAllEvents, getEventsState));
+export const getEventEntities = createSelector(getEventsState, fromEvents.getEventEntities);
+export const getEventIds = createSelector(getEventsState, fromEvents.getEventIds);
+export const getSelectedEvent = createSelector(getEventsState, fromEvents.getSelectedEvent);
+export const getEventsCollection = createSelector(getEventsState, fromEvents.getAllEvents);

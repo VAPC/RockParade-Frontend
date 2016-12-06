@@ -1,4 +1,4 @@
-import {ILink} from './ILinks';
+import { ILink } from './ILinks';
 export interface IEvent {
     id: string;
     date: string;

@@ -2,7 +2,7 @@ import {Routes} from '@angular/router';
 import {RPEventsListComponent} from '../rp-events-list/rp-events-list.component';
 import {RPEventComponent} from '../rp-event/rp-event.component';
 
-const routes: Routes = [
+export const routes: Routes = [
     {
         path: '',
         component: RPEventsListComponent
@@ -12,5 +12,3 @@ const routes: Routes = [
         component: RPEventComponent
     }
 ];
-
-export default routes;
